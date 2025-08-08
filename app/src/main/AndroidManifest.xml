@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.acfaultquery">  <!-- 替换为你的应用包名 -->
+    
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"  <!-- 需要在 res/values/strings.xml 中定义 app_name -->
+        android:theme="@style/Theme.YourAppTheme">  <!-- 替换为你的主题 -->
+        
+        <!-- 主Activity配置 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
