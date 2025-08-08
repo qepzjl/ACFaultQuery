@@ -1,0 +1,37 @@
+// app模块的 build.gradle
+plugins {
+    id 'com.android.application' // 声明这是一个应用模块
+}
+
+android {
+    namespace 'com.example.acfaultquery' // 应用包名
+    compileSdk 34 // 编译SDK版本
+    
+    defaultConfig {
+        applicationId "com.example.acfaultquery" // 应用ID
+        minSdk 21    // 最低支持的Android版本
+        targetSdk 34 // 目标SDK版本
+        versionCode 1 // 内部版本号
+        versionName "1.0" // 用户可见版本号
+    }
+    
+    buildTypes {
+        release {
+            minifyEnabled true   // 启用代码混淆
+            shrinkResources true // 启用资源缩减
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // 应用依赖
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+}
