@@ -8,12 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        # 确保获取所有子模块和文件
         fetch-depth: 0
         
     - name: Set up JDK 17
@@ -21,25 +21,25 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: 'gradle'
         
-    # 确保 gradlew 文件存在
-    - name: Verify Gradle Wrapper
+    - name: Setup Gradle Wrapper
       run: |
-        if [ ! -f "./gradlew" ]; then
-          echo "生成 Gradle Wrapper..."
+        # 如果缺少 wrapper 文件，则创建
+        if [ ! -f "gradlew" ]; then
+          echo "创建 Gradle Wrapper..."
           gradle wrapper --gradle-version 8.0
-        else
-          echo "Gradle Wrapper 已存在"
         fi
         
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
+        # 确保有执行权限
+        chmod +x gradlew
+        
     - name: Build Release APK
       run: ./gradlew assembleRelease
       
-    - name: Upload APK
+    - name: Upload APK artifact
       uses: actions/upload-artifact@v3
       with:
         name: app-release
-        path: app/build/outputs/apk/release/app-release.apk
+        path: app/build/outputs/apk/release/*.apk
+        retention-days: 7
